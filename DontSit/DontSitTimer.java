@@ -7,17 +7,20 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class DontSitTimer {
 
     private final static ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
-    private final static TrayIcon TRAY_ICON = new TrayIcon(CreateIcon("/Images/icon.png", "Tray Icon"));
+    private static TrayIcon trayIcon;
     private final static MenuItem STOP_ITEM = new MenuItem("Stop timer");  // Start timer
     private static int lastTimerLenght;
     private static boolean keepRunning = false;
@@ -25,14 +28,49 @@ public class DontSitTimer {
 
     public static void main(String[] args) {
         // Check support.
-        if (!SystemTray.isSupported()) {
-            System.err.println("System tray is not supported.");
-            System.exit(1);
-            return;
+        try {
+            if (!SystemTray.isSupported()) {
+                System.err.println("System tray is not supported.");
+                System.exit(1);
+            }
+        } catch (Exception e) {
+            System.err.println("Error when checking system tray support: " + e);
+            System.exit(2);
         }
 
         // Variables
-        final SystemTray sysTray = SystemTray.getSystemTray();     // System's tray
+        final SystemTray sysTray = SystemTray.getSystemTray();  // System's tray
+
+        // Tray icon size
+        int trayIconWidth = sysTray.getTrayIconSize().width;
+        switch (trayIconWidth) {
+            case 16:
+                trayIcon = new TrayIcon(CreateIcon("/Images/icon16x16.png", "Tray Icon"));
+                break;
+            case 24:
+                trayIcon = new TrayIcon(CreateIcon("/Images/icon24x24.png", "Tray Icon"));
+                break;
+            case 32:
+                trayIcon = new TrayIcon(CreateIcon("/Images/icon32x32.png", "Tray Icon"));
+                break;
+            case 48:
+                trayIcon = new TrayIcon(CreateIcon("/Images/icon48x48.png", "Tray Icon"));
+                break;
+            case 64:
+                trayIcon = new TrayIcon(CreateIcon("/Images/icon64x64.png", "Tray Icon"));
+                break;
+            default:
+                try {
+                    BufferedImage trayIconImage = ImageIO.read(DontSitTimer.class.getResource("/Images/icon64x64.png.png"));
+                    trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH));
+                } catch (IOException e) {
+                    System.err.println("Could not find the image: " + e);
+                    System.exit(4);
+                }
+                break;
+
+        }
+
         // Main menu items
         //final MenuItem showItem = new MenuItem("Show");         // Show button
         final MenuItem aboutItem = new MenuItem("About");       // About button
@@ -47,22 +85,22 @@ public class DontSitTimer {
 
         // Action events
         sixtyMinutes.addActionListener((ActionEvent ae) -> {
-            TRAY_ICON.displayMessage("60 minutes", "Timer set to 60 minutes.", TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage("60 minutes", "Timer set to 60 minutes.", TrayIcon.MessageType.INFO);
             stopTimer();
             startTimer(60, "Det har gått 60 minuter.\nDags att röra på sig.", true);
         });
         forthyMinutes.addActionListener((ActionEvent ae) -> {
-            TRAY_ICON.displayMessage("40 minutes", "Timer set to 40 minutes.", TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage("40 minutes", "Timer set to 40 minutes.", TrayIcon.MessageType.INFO);
             stopTimer();
             startTimer(40, "Det har gått 40 minuter.\nDags att röra på sig.", true);
         });
         thirtyMinutes.addActionListener((ActionEvent ae) -> {
-            TRAY_ICON.displayMessage("30 minutes", "Timer set to 30 minutes.", TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage("30 minutes", "Timer set to 30 minutes.", TrayIcon.MessageType.INFO);
             stopTimer();
             startTimer(30, "Det har gått 30 minuter.\nDags att röra på sig.", true);
         });
         twentyMinutes.addActionListener((ActionEvent ae) -> {
-            TRAY_ICON.displayMessage("20 minutes", "Timer set to 20 minutes.", TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage("20 minutes", "Timer set to 20 minutes.", TrayIcon.MessageType.INFO);
             stopTimer();
             startTimer(20, "Det har gått 20 minuter.\nDags att röra på sig.", true);
         });
@@ -74,7 +112,7 @@ public class DontSitTimer {
             JOptionPane.showMessageDialog(null, "Made by Emile Priller", "Don't Sit!", JOptionPane.PLAIN_MESSAGE, new ImageIcon(DontSitTimer.class.getClassLoader().getResource("Images/icon32x32.png")));
         });
         exitItem.addActionListener((ActionEvent ae) -> { // Exit application button action
-            sysTray.remove(TRAY_ICON);
+            sysTray.remove(trayIcon);
             System.exit(0);
         });
 
@@ -87,17 +125,17 @@ public class DontSitTimer {
         popupMenu.add(aboutItem);
         popupMenu.add(exitItem);
 
-        TRAY_ICON.setPopupMenu(popupMenu);
-        TRAY_ICON.setToolTip("Don't Sit\nVersion 1.0");
+        trayIcon.setPopupMenu(popupMenu);
+        trayIcon.setToolTip("Don't Sit\nVersion 1.0");
 
         // Start GUI
         Runnable gui = () -> {
             // Get system tray and trayIcon to it.
             try {
-                sysTray.add(TRAY_ICON);
+                sysTray.add(trayIcon);
             } catch (AWTException e) {
-                System.err.println(e);
-                System.exit(2);
+                System.err.println("Error when adding icon to system tray: " + e);
+                System.exit(3);
             }
         };
         Thread guiThread = new Thread(gui);
@@ -105,13 +143,15 @@ public class DontSitTimer {
         guiThread.start();
 
         // Start first timer
-        startTimer(30, "Det har gått 30 minuter.\nDags att röra på sig.", true);
+//        startTimer(30, "Det har gått 30 minuter.\nDags att röra på sig.", true);
+        startTimer(6, "Det har gått 30 minuter.\nDags att röra på sig.", true);
     }
 
-    private static void startTimer(int timerLenght, String message, boolean kr) {
-        keepRunning = kr;
+    private static void startTimer(int timerLenght, String message, boolean keepRun) {
+        keepRunning = keepRun;
         running = true;
         STOP_ITEM.setEnabled(true);
+        lastTimerLenght = timerLenght;
         startTimer(timerLenght, message);
     }
 
@@ -123,7 +163,8 @@ public class DontSitTimer {
             }
         };
 
-        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
+        //SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
+        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.SECONDS);
     }
 
     private static void stopTimer() {
