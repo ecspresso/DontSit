@@ -163,8 +163,7 @@ public class DontSitTimer {
             }
         };
 
-        //SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
-        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.SECONDS);
+        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
     }
 
     private static void stopTimer() {
