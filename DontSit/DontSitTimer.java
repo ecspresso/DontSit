@@ -143,8 +143,7 @@ public class DontSitTimer {
         guiThread.start();
 
         // Start first timer
-//        startTimer(30, "Det har gått 30 minuter.\nDags att röra på sig.", true);
-        startTimer(6, "Det har gått 30 minuter.\nDags att röra på sig.", true);
+        startTimer(30, "Det har gått 30 minuter.\nDags att röra på sig.", true);
     }
 
     private static void startTimer(int timerLenght, String message, boolean keepRun) {
