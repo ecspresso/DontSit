@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -240,11 +242,27 @@ public class DontSitTimer {
         });
         //</editor-fold>
         
-        //<editor-fold defaultstate="collapsed" desc="Hide MESSAGE_FORM and set location">
+        //<editor-fold defaultstate="collapsed" desc="MESSAGE_FORM: set location, icon">
         // Hide MESSAGE_FORM
         java.awt.EventQueue.invokeLater(() -> {
             MESSAGE_FRAME.setLocationRelativeTo(null);
-            MESSAGE_FRAME.setVisible(false);
+            
+            try {
+                List<Image> icons = new ArrayList<>();
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon16x16.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon24x24.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon32x32.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon48x48.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon64x64.png")));
+                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon96x96.png")));
+                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon128x128.png")));
+                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon256x256.png")));
+                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon512x512.png")));
+                
+                MESSAGE_FRAME.setIconImages(icons);
+            } catch (IOException ex) {
+                Logger.getLogger(DontSitTimer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         //</editor-fold>
         
@@ -266,8 +284,8 @@ public class DontSitTimer {
                 
         //<editor-fold defaultstate="collapsed" desc="Start first timer">
         // Start first timer
-        startTimer(30);
-        //startTimer(1);
+        //startTimer(30);
+        startTimer(1);
         //</editor-fold> 
    }
 
@@ -283,8 +301,8 @@ public class DontSitTimer {
     }
 
     private static void startTimerSCHEDULER(int timerLenght) {
-        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
-        //SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.SECONDS);
+        //SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
+        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.SECONDS);
     }
 
     private static void stopTimer() {
