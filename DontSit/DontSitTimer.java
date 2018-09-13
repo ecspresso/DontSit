@@ -70,19 +70,34 @@ public class DontSitTimer {
         int trayIconWidth = sysTray.getTrayIconSize().width;
         switch (trayIconWidth) {
             case 16:
-                trayIcon = new TrayIcon(CreateIcon("/Images/icon16x16.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart16x16.png", "Tray Icon"));
                 break;
             case 24:
-                trayIcon = new TrayIcon(CreateIcon("/Images/icon24x24.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart24x24.png", "Tray Icon"));
                 break;
             case 32:
-                trayIcon = new TrayIcon(CreateIcon("/Images/icon32x32.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart32x32.png", "Tray Icon"));
                 break;
             case 48:
-                trayIcon = new TrayIcon(CreateIcon("/Images/icon48x48.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart48x48.png", "Tray Icon"));
                 break;
             case 64:
-                trayIcon = new TrayIcon(CreateIcon("/Images/icon64x64.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart64x64.png", "Tray Icon"));
+                break;
+            case 96:
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart96x96.png", "Tray Icon"));
+                break;
+            case 128:
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart128x128.png", "Tray Icon"));
+                break;
+            case 256:
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart256x256.png", "Tray Icon"));
+                break;
+            case 512:
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart512x512.png", "Tray Icon"));
+                break;
+            case 1024:
+                trayIcon = new TrayIcon(CreateIcon("/Images/heart1024x1024.png", "Tray Icon"));
                 break;
             default:
                 try {
@@ -249,15 +264,16 @@ public class DontSitTimer {
             
             try {
                 List<Image> icons = new ArrayList<>();
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon16x16.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon24x24.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon32x32.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon48x48.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon64x64.png")));
-                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon96x96.png")));
-                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon128x128.png")));
-                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon256x256.png")));
-                //icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/icon512x512.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart16x16.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart24x24.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart32x32.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart48x48.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart64x64.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart96x96.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart128x128.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart256x256.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart512x512.png")));
+                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart1024x1024.png")));
                 
                 MESSAGE_FRAME.setIconImages(icons);
             } catch (IOException ex) {
@@ -284,8 +300,8 @@ public class DontSitTimer {
                 
         //<editor-fold defaultstate="collapsed" desc="Start first timer">
         // Start first timer
-        //startTimer(30);
-        startTimer(1);
+        startTimer(30);
+        //startTimer(1);
         //</editor-fold> 
    }
 
@@ -301,8 +317,8 @@ public class DontSitTimer {
     }
 
     private static void startTimerSCHEDULER(int timerLenght) {
-        //SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
-        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.SECONDS);
+        SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.MINUTES);
+        //SCHEDULER.schedule(messagePopup, timerLenght, TimeUnit.SECONDS);
     }
 
     private static void stopTimer() {
