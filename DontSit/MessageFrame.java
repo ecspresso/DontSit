@@ -96,7 +96,7 @@ public class MessageFrame extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         DontSitTimer.MESSAGE_FRAME.setVisible(false);
-        DontSitTimer.SCHEDULER.schedule(DontSitTimer.messagePopup, DontSitTimer.lastTimerLenght, TimeUnit.SECONDS);
+        DontSitTimer.SCHEDULER.schedule(DontSitTimer.messagePopup, DontSitTimer.lastTimerLenght, TimeUnit.MINUTES);
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
