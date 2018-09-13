@@ -235,7 +235,7 @@ public class DontSitTimer {
         //<editor-fold defaultstate="collapsed" desc="Add items to trayIcon">
         // Add items to trayIcon
         trayIcon.setPopupMenu(popupMenu);
-        trayIcon.setToolTip("Don't Sit\nVersion 1.0");
+        trayIcon.setToolTip("Don't Sit\nVersion 2.1.2");
         //</editor-fold>
    
         //<editor-fold defaultstate="collapsed" desc="Set the Windows look and feel">
