@@ -63,6 +63,26 @@ public class DontSitTimer {
                 MESSAGE_FRAME.setVisible(true);
             });
         };
+        
+        //<editor-fold defaultstate="collapsed" desc="Main menu items">
+        // "Right-click" menu
+        final PopupMenu popupMenu = new PopupMenu();            // Popup menu
+
+        // Sub menu
+        final PopupMenu settingsMenu = new PopupMenu("Settings"); // Settings for timer
+        
+        // Sub items
+        final MenuItem aboutItem = new MenuItem("About");       // About button
+        final MenuItem exitItem = new MenuItem("Exit");         // Exit application button
+        final MenuItem sixtyMinutes = new MenuItem("60 minutes");
+        final MenuItem forthyMinutes = new MenuItem("40 minutes");
+        final MenuItem thirtyMinutes = new MenuItem("30 minutes");
+        final MenuItem twentyMinutes = new MenuItem("20 minutes");
+        
+        // Sub menu item
+        final CheckboxMenuItem alwaysOnTop = new CheckboxMenuItem("Always on top", true);
+        final CheckboxMenuItem autoRequestFocus = new CheckboxMenuItem("Request focus", true);
+        //</editor-fold>
         //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="Tray icon size">
@@ -110,27 +130,6 @@ public class DontSitTimer {
                 break;
         }
         //</editor-fold>
-
-        //<editor-fold defaultstate="collapsed" desc="Main menu items">
-        // "Right-click" menu
-        final PopupMenu popupMenu = new PopupMenu();            // Popup menu
-
-        // Sub menu
-        final PopupMenu settingsMenu = new PopupMenu("Settings"); // Settings for timer
-        
-        // Sub items
-        final MenuItem aboutItem = new MenuItem("About");       // About button
-        final MenuItem exitItem = new MenuItem("Exit");         // Exit application button
-        final MenuItem sixtyMinutes = new MenuItem("60 minutes");
-        final MenuItem forthyMinutes = new MenuItem("40 minutes");
-        final MenuItem thirtyMinutes = new MenuItem("30 minutes");
-        final MenuItem twentyMinutes = new MenuItem("20 minutes");
-        
-        // Sub menu item
-        final CheckboxMenuItem alwaysOnTop = new CheckboxMenuItem("Always on top", true);
-        final CheckboxMenuItem autoRequestFocus = new CheckboxMenuItem("Request focus", true);
-        final CheckboxMenuItem focusable = new CheckboxMenuItem("Focusable", true);
-        //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="Add items to popupMenu">
         // Add items to popupMenu
@@ -146,11 +145,10 @@ public class DontSitTimer {
         popupMenu.add(exitItem);
         //</editor-fold>
         
-        //<editor-fold defaultstate="collapsed" desc="Add items to popupMenu">
+        //<editor-fold defaultstate="collapsed" desc="Add items to settingsMenu">
         // Add items to popupMenu
         settingsMenu.add(alwaysOnTop);
         settingsMenu.add(autoRequestFocus);
-        settingsMenu.add(focusable);
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="Action events">
@@ -209,20 +207,11 @@ public class DontSitTimer {
             }
         });
         
-        // Request focus
-        focusable.addItemListener((ItemEvent ie) -> {
-            if(focusable.getState()) {
-                MESSAGE_FRAME.setFocusable(true);
-            } else {
-                MESSAGE_FRAME.setFocusable(true);
-            }
-        });
-        
         //  -- Separator --
         
         // About
         aboutItem.addActionListener((ActionEvent ae) -> { // About button action
-            JOptionPane.showMessageDialog(null, "Made by Emile Priller", "Don't Sit!", JOptionPane.PLAIN_MESSAGE, new ImageIcon(DontSitTimer.class.getClassLoader().getResource("Images/icon32x32.png")));
+            JOptionPane.showMessageDialog(null, "Made by Emile Priller", "Don't Sit!", JOptionPane.PLAIN_MESSAGE, new ImageIcon(DontSitTimer.class.getClassLoader().getResource("Images/heart48x48.png")));
         });
         
         // Exit button
@@ -235,7 +224,7 @@ public class DontSitTimer {
         //<editor-fold defaultstate="collapsed" desc="Add items to trayIcon">
         // Add items to trayIcon
         trayIcon.setPopupMenu(popupMenu);
-        trayIcon.setToolTip("Don't Sit\nVersion 2.1.2");
+        trayIcon.setToolTip("Don't Sit\nVersion 2.1.3");
         //</editor-fold>
    
         //<editor-fold defaultstate="collapsed" desc="Set the Windows look and feel">
@@ -257,29 +246,29 @@ public class DontSitTimer {
         });
         //</editor-fold>
         
-        //<editor-fold defaultstate="collapsed" desc="MESSAGE_FORM: set location, icon">
+        //<editor-fold defaultstate="collapsed" desc="MESSAGE_FORM: set location. icon">
         // Hide MESSAGE_FORM
         java.awt.EventQueue.invokeLater(() -> {
             MESSAGE_FRAME.setLocationRelativeTo(null);
-            
-            try {
-                List<Image> icons = new ArrayList<>();
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart16x16.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart24x24.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart32x32.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart48x48.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart64x64.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart96x96.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart128x128.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart256x256.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart512x512.png")));
-                icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart1024x1024.png")));
-                
-                MESSAGE_FRAME.setIconImages(icons);
-            } catch (IOException ex) {
-                Logger.getLogger(DontSitTimer.class.getName()).log(Level.SEVERE, null, ex);
-            }
         });
+        
+        try {
+            List<Image> icons = new ArrayList<>();
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart16x16.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart24x24.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart32x32.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart48x48.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart64x64.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart96x96.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart128x128.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart256x256.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart512x512.png")));
+            icons.add(ImageIO.read(DontSitTimer.class.getResourceAsStream("/Images/heart1024x1024.png")));
+
+            MESSAGE_FRAME.setIconImages(icons);
+        } catch (IOException ex) {
+            Logger.getLogger(DontSitTimer.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="Start GUI">
