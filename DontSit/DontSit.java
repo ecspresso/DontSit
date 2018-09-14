@@ -90,38 +90,38 @@ public class DontSit {
         int trayIconWidth = sysTray.getTrayIconSize().width;
         switch (trayIconWidth) {
             case 16:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart16x16.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart16x16.png", "Tray Icon"));
                 break;
             case 24:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart24x24.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart24x24.png", "Tray Icon"));
                 break;
             case 32:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart32x32.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart32x32.png", "Tray Icon"));
                 break;
             case 48:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart48x48.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart48x48.png", "Tray Icon"));
                 break;
             case 64:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart64x64.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart64x64.png", "Tray Icon"));
                 break;
             case 96:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart96x96.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart96x96.png", "Tray Icon"));
                 break;
             case 128:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart128x128.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart128x128.png", "Tray Icon"));
                 break;
             case 256:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart256x256.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart256x256.png", "Tray Icon"));
                 break;
             case 512:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart512x512.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart512x512.png", "Tray Icon"));
                 break;
             case 1024:
-                trayIcon = new TrayIcon(CreateIcon("/Images/heart1024x1024.png", "Tray Icon"));
+                trayIcon = new TrayIcon(CreateIcon("/images/heart1024x1024.png", "Tray Icon"));
                 break;
             default:
                 try {
-                    BufferedImage trayIconImage = ImageIO.read(DontSit.class.getResource("/Images/icon64x64.png.png"));
+                    BufferedImage trayIconImage = ImageIO.read(DontSit.class.getResource("/images/icon64x64.png.png"));
                     trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH));
                 } catch (IOException e) {
                     System.err.println("Could not find the image: " + e);
@@ -208,7 +208,7 @@ public class DontSit {
         //  -- Separator --
         // About
         aboutItem.addActionListener((ActionEvent ae) -> { // About button action
-            JOptionPane.showMessageDialog(null, "Made by Emile Priller", "Don't Sit!", JOptionPane.PLAIN_MESSAGE, new ImageIcon(DontSit.class.getClassLoader().getResource("Images/heart48x48.png")));
+            JOptionPane.showMessageDialog(null, "Made by Emile Priller", "Don't Sit!", JOptionPane.PLAIN_MESSAGE, new ImageIcon(DontSit.class.getClassLoader().getResource("images/heart48x48.png")));
         });
 
         // Exit button
@@ -221,7 +221,7 @@ public class DontSit {
         //<editor-fold defaultstate="collapsed" desc="Add items to trayIcon">
         // Add items to trayIcon
         trayIcon.setPopupMenu(popupMenu);
-        trayIcon.setToolTip("Don't Sit\nVersion 2.1.3");
+        trayIcon.setToolTip("Don't Sit\nVersion 2.1.5");
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="Set the Windows look and feel">
@@ -251,16 +251,16 @@ public class DontSit {
 
         try {
             List<Image> icons = new ArrayList<>();
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart16x16.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart24x24.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart32x32.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart48x48.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart64x64.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart96x96.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart128x128.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart256x256.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart512x512.png")));
-            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/Images/heart1024x1024.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart16x16.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart24x24.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart32x32.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart48x48.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart64x64.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart96x96.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart128x128.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart256x256.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart512x512.png")));
+            icons.add(ImageIO.read(DontSit.class.getResourceAsStream("/images/heart1024x1024.png")));
 
             MESSAGE_FRAME.setIconImages(icons);
         } catch (IOException ex) {
